@@ -40,18 +40,18 @@ if($query -> num_rows>0){
       <tbody>
       <?php while($row = $query -> fetch_array()){?>
         <tr>
-        <td><?=sprintf("%05d", $row[0])?></td>
-        <td><?=$row[1]?></td>
-        <td><?php $doc_num = ($row[18])? $row[18] : $row[14].$row[4]."/".$row[5]; echo $doc_num;?></td>
+            <td><?=sprintf("%05d", $row[0])?></td>
+            <td><?=$row[1]?></td>
+            <td><?php $doc_num = ($row[18])? $row[18] : $row[14].$row[4]."/".$row[5]; echo $doc_num;?></td>
 
-        <td><?=date("d/m",strtotime($row[2]))?>/<?=$row['10']?></td>
-        <td><?php $doc_fac = ($row[17])? $row[17] : $row[12]; echo $doc_fac;?></td>
-        <td><?=$row[23]?></td>
-        <td><?=$row[7]?></td>
-        <td><?=$row[20]?></td>
-        <td></td>
-        <td></td>
-      </tr>
+            <td><?=date("d/m",strtotime($row[2]))?>/<?=$row['10']?></td>
+            <td><?php $doc_fac = ($row[17])? $row[17] : $row[12]; echo $doc_fac;?></td>
+            <td><?=$row[23]?></td>
+            <td><?=$row[7]?></td>
+            <td><?=$row[20]?></td>
+            <td><button type="button" class="btn btn-outline-primary btn-sm">แก้ไข</button></td>
+            <td><button type="button" class="btn btn-outline-danger btn-sm">ปกติ</button></td>
+          </tr>
       <?php }?>
       </tbody>
       </table>

@@ -3,7 +3,6 @@
 require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
 $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")+543;
-$doc_saved = !empty($_GET["doc_saved"]) ? $_GET["doc_saved"]:"";
 $lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
                         LEFT JOIN others_fac ON (doc.reg_num = others_fac.reg_num AND doc.year_show = others_fac.year_show)
                         LEFT JOIN staff ON doc.staff_id = staff.staff_id
@@ -77,7 +76,7 @@ $past_fac_doc_code= $row[14];
   </nav>
   <?php if(!empty($_GET['saved'])){
     if($_GET['saved']=='ok'){
-      echo'<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Saved!</strong> ระบบทำการบันทึกข้อมูลหนังสือรับเลขที่ '.$doc_saved.' แล้ว'; }
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Saved!</strong> ระบบทำการบันทึกข้อมูลหนังสือรับเลขที่ '.sprintf("%05s",$past_gra_num).' แล้ว'; }
     elseif($_GET['saved']=='error'){ echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>SQL Error!</strong> ไม่สามารถบันทึกข้อมูลได้'; }
     elseif($_GET['saved']=='existed'){ echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>Number Existed!</strong> เลขที่ดังกล่าวถูกใช้แล้ว'; } ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="success-alert">
@@ -86,7 +85,7 @@ $past_fac_doc_code= $row[14];
     <script>
     $(document).ready (function(){
                   window.setTimeout(function () {
-                              $("#success-alert").alert('close'); }, 2500);
+                              $("#success-alert").alert('close'); }, 10000);
                     });
     </script>
 </div>
@@ -126,7 +125,7 @@ $past_fac_doc_code= $row[14];
       <div class="col-lg-3">
         <select class="form-control" id="fac" name="fac_id">
         <?php while($row_assoc = $query_fac -> fetch_assoc()){?>
-        <option value="<?=$row_assoc['fac_id']?>" <?php if($row_assoc['fac_id']==$past_fac_id){?> selected <?php }?>><?=$row_assoc['fac_name']?></option>
+        <option value="<?=$row_assoc['fac_id']?>" <?php if($row_assoc['fac_id']==$past_fac_id){?> selected <?php }?>><?=$row_assoc['fac_id'].' :'.$row_assoc['fac_name']?></option>
         <?php }?>
         </select>
         <div class="invalid-feedback">

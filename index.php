@@ -23,6 +23,7 @@ $query = $mysqli -> query($sql);
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="pagination/paginathing.js"></script>
 <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/imagehover.min.css">
 <title>หนังสือเลขรับ ฝ่ายทะเบียนการศึกษา บัณฑิตศึกษา <?=$year_show?></title>
 </head>
 
@@ -32,17 +33,17 @@ $query = $mysqli -> query($sql);
     <nav class="navbar navbar-primary bg-primary justify-content-center">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link text-white" href="index.php?get_year_show=<?=$year_show?>">หน้าแรก</a>
+          <a class="nav-link text-white" href="">หน้าแรก</a> <!--index.php?get_year_show=<?=$year_show?>-->
         </li>
 
         <li class="nav-item">
-          <a class="nav-link text-white" href="edit.php">บันทึก</a>
+          <a class="nav-link text-white" href="#">บันทึก</a> <!-- edit.php -->
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#?get_year_show=<?=$year_show?>">รายงาน</a>
+          <a class="nav-link text-white" href="#">รายงาน</a>  <!--....php?get_year_show=<?=$year_show?>-->
         </li>
         <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
             ปี <?=$year_show?>
           </button>
           <div class="dropdown-menu">
@@ -76,6 +77,7 @@ $query = $mysqli -> query($sql);
       <div id="result">
         <div id="pagination-position"></div>
         <h4 align="center">เลขหนังสือรับทั้งหมด <?=$query -> num_rows?> เรื่อง</h4>
+        
         <table id="table01" class="table table-hover table-responsive-md">
           <thead>
             <tr class="bg-primary text-light">
@@ -87,13 +89,12 @@ $query = $mysqli -> query($sql);
               <th scope="col">ถึง</th>
               <th scope="col">เรื่อง</th>
               <th scope="col">การปฏิบัติ</th>
-              <th scope="col">แก้ไข</th>
-              <th scope="col">คืน</th>
+              <th scope="col" colspan='2'>แก้ไข / คืนเรื่อง</th>
             </tr>
           </thead>
           <tbody>
           <?php while($row = $query -> fetch_array()){?>
-            <tr>
+            <tr <?php if($row[9]==0){ echo"class='text-black-50'";}?>>
             <td><?=sprintf("%05d", $row[0])?></td>
             <td><?=$row[1]?></td>
             <td><?php $doc_num = ($row[18])? $row[18] : $row[14].$row[4]."/".$row[5]; echo $doc_num;?></td>
@@ -103,8 +104,10 @@ $query = $mysqli -> query($sql);
             <td><?=$row[23]?></td>
             <td><?=$row[7]?></td>
             <td><?=$row[20]?></td>
-            <td></td>
-            <td></td>
+          <?php if($row[9]==0){ ?><td colspan="2"><button type="button" class="btn btn-outline-secondary btn-sm" disabled>คืนเรื่องแล้ว</button></td><?php } else{ ?>
+            <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="<?=$row[1]?>">แก้ไข</button></td>         
+            <td><button id="return" type="button" class="btn btn-outline-danger btn-sm">&nbsp;&nbsp;คืน&nbsp;&nbsp; </button></td>
+          <?php }?>
           </tr>
           <?php }
           $query->close();
@@ -115,6 +118,34 @@ $query = $mysqli -> query($sql);
 
         </div>
   </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">แก้ไขเรื่องเข้าเลขที่ </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Recipient:</label>
+                        <input type="text" class="form-control" id="recipient-name">
+                      </div>
+                      <div class="form-group">
+                        <label for="message-text" class="col-form-label">Message:</label>
+                        <textarea class="form-control" id="message-text"></textarea>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send message</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 </body>
 </html>
 

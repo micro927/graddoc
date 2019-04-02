@@ -220,7 +220,7 @@
 
   $.fn.paginathing.defaults = {
     perPage: 10,
-    limitPagination: false,
+    limitPagination: 20,
     prevNext: true,
     firstLast: true,
     prevText: '←',

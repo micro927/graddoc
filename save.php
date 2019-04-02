@@ -1,8 +1,6 @@
-<!DOCTYPE html>
 <?php
 require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
-
 $reg_num = $_POST['reg_num'];
 $gra_num = $_POST['gra_num'];
 $fac_id = $_POST['fac_id'];

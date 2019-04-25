@@ -105,8 +105,18 @@ $query = $mysqli -> query($sql);
             <td><?=$row[7]?></td>
             <td><?=$row[20]?></td>
           <?php if($row[9]==0){ ?><td colspan="2"><button type="button" class="btn btn-outline-secondary btn-sm" disabled>คืนเรื่องแล้ว</button></td><?php } else{ ?>
-            <td><button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="<?=$row[1]?>">แก้ไข</button></td>         
-            <td><button id="return" type="button" class="btn btn-outline-danger btn-sm">&nbsp;&nbsp;คืน&nbsp;&nbsp; </button></td>
+            <td>
+              <!-- <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#editModal" data-whatever="<?=$row[1]?>" data-whatever2="<?=$row[2]?>">แก้ไข</button> -->
+            </td>         
+            <td><button id="return" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" 
+                        data-target="#returnModal" 
+                        data-reg_num="<?=$row[1]?>"
+                        data-gra_num="<?=$row[0]?>"
+                        data-fac_title="<?=$row[12]?>"
+                        data-doc_title="<?=$row[7]?>">
+                        &nbsp;&nbsp;คืน&nbsp;&nbsp;
+                 </button>
+            </td>
           <?php }?>
           </tr>
           <?php }
@@ -115,14 +125,14 @@ $query = $mysqli -> query($sql);
           ?>
           </tbody>
           </table>
-
         </div>
   </div>
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Edit Modal (PopUp) -->
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">แก้ไขเรื่องเข้าเลขที่ </h5>
+                    <h5 class="modal-title" id="editModalLabel">แก้ไขเรื่องเข้าเลขที่ </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -146,6 +156,27 @@ $query = $mysqli -> query($sql);
                 </div>
               </div>
             </div>
+
+  <!--Return Modal -->
+  <div class="modal fade" id="returnModal" tabindex="-1" role="dialog" aria-labelledby="returnModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="returnModalLabel">ยืนยันการคืนเอกสาร</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 class="modal-text"></h6>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-danger return_confirm" role="button">ยืนยัน</a>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">ย้อนกลับ</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 
@@ -154,3 +185,5 @@ $query = $mysqli -> query($sql);
 <script type="text/javascript" src="search.js"></script>
 <!-- Pagination script-->
 <script type="text/javascript" src="tablepage.js"></script>
+<!-- Modal -->
+<script type="text/javascript" src="editmodal.js"></script>

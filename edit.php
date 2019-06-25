@@ -132,7 +132,7 @@ $past_fac_doc_code= $row[14];
           กรุณาเลือกคณะ
         </div>
       </div>
-      <label for="fac_code" class="col-lg-1 col-form-label">เลขที่</label>
+      <label for="fac_code" class="col-lg-1 col-form-label">เลขที่ อว</label>
       <div id="fac_code_show" class="col-lg-2">
         <input name="fac_code" id="fac_code" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?=$past_fac_doc_code?>" readonly required>
         <div class="invalid-feedback">

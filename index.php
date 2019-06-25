@@ -75,7 +75,6 @@ $query = $mysqli -> query($sql);
         <br>
       <!-- Table -->
       <div id="result">
-        <div id="pagination-position"></div>
         <h4 align="center">เลขหนังสือรับทั้งหมด <?=$query -> num_rows?> เรื่อง</h4>
         
         <table id="table01" class="table table-hover table-responsive-md">
@@ -106,12 +105,21 @@ $query = $mysqli -> query($sql);
             <td><?=$row[20]?></td>
           <?php if($row[9]==0){ ?><td colspan="2"><button type="button" class="btn btn-outline-secondary btn-sm" disabled>คืนเรื่องแล้ว</button></td><?php } else{ ?>
             <td>
-              <!-- <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#editModal" data-whatever="<?=$row[1]?>" data-whatever2="<?=$row[2]?>">แก้ไข</button> -->
+              <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#editModal" 
+                  data-whatever="<?=$row[1]?>" 
+                  data-whatever2="<?=$row[2]?>"
+                  
+                  data-gra_num="<?=$row[1]?>"
+                  data-reg_num="<?=$row[0]?>"
+                  data-fac_title="<?=$row[12]?>"
+                  data-doc_title="<?=$row[7]?>"
+                  >
+                  แก้ไข</button>
             </td>         
             <td><button id="return" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" 
                         data-target="#returnModal" 
-                        data-reg_num="<?=$row[1]?>"
-                        data-gra_num="<?=$row[0]?>"
+                        data-gra_num="<?=$row[1]?>"
+                        data-reg_num="<?=$row[0]?>"
                         data-fac_title="<?=$row[12]?>"
                         data-doc_title="<?=$row[7]?>">
                         &nbsp;&nbsp;คืน&nbsp;&nbsp;

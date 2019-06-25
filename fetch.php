@@ -19,9 +19,10 @@ $sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
 $query = $mysqli -> query($sql);
 if($query -> num_rows>0){
   $limitpage = $query -> num_rows;?>
-  <!-- Table -->
-    <div id="pagination-position"></div>
+  <!-- Show Result -->
     <h4 align="center">ผลการค้นหาทั้งหมด <?=$limitpage?> เรื่อง</h4>
+
+  <!-- Table -->
     <table id="table01" class="table table-hover table-responsive-md">
       <thead>
         <tr class="bg-primary text-light">
@@ -55,6 +56,7 @@ if($query -> num_rows>0){
       <?php }?>
       </tbody>
       </table>
+
 
 <?php }
 else {?>

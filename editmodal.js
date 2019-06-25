@@ -19,5 +19,5 @@ $('#editModal').on('show.bs.modal', function (event) {
     // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
     var modal = $(this)
     modal.find('.modal-text').html('เอกสารรับเลขที่ ' + gra_num +' ('+reg_num+') <br/>' + fac_title + ' : ' + doc_title)
-    modal.find('.return_confirm').attr('href' , 'return.php?gr_num='+gra_num+'&year='+year_show)
+    modal.find('.return_confirm').attr('href' , 'return.php?gra_num='+gra_num+'&year_show='+year_show)
   })

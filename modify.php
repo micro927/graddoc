@@ -2,13 +2,16 @@
 <?php
 require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
-$year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")+543;
+$year_show = !empty($_GET["year_show"]) ? $_GET["year_show"] : date("Y")+543;
+$gra_num = !empty($_GET["gra_num"]) ? $_GET["gra_num"] : date("Y")+543;
+
 $lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
                         LEFT JOIN others_fac ON (doc.gra_num = others_fac.gra_num AND doc.year_show = others_fac.year_show)
                         LEFT JOIN staff ON doc.staff_id = staff.staff_id
                         LEFT JOIN dear_to ON doc.dear_to_id = dear_to.dear_to_id
-                        WHERE doc.year_show ='$year_show'
-                        ORDER BY date DESC,doc.gra_num DESC LIMIT 1";
+                        LEFT JOIN tips ON (doc.gra_num = tips.gra_num AND doc.year_show = tips.year_show)
+                        WHERE doc.year_show ='$year_show' AND doc.gra_num ='$gra_num'
+                        LIMIT 1";
 $fac_sql = "SELECT fac_id,fac_name FROM fac ORDER BY fac_id";
 $dear_to_sql = "SELECT * FROM dear_to";
 $staff_sql = "SELECT * FROM staff";
@@ -18,19 +21,20 @@ $query_fac = $mysqli -> query($fac_sql);
 $query_dear_to = $mysqli -> query($dear_to_sql);
 $query_staff = $mysqli -> query($staff_sql);
 
-$row=$query_lastdoc -> fetch_array();
-$past_reg_num = $row[0]+1;
-$past_gra_num = $row[1]+1;
+$row =$query_lastdoc -> fetch_array();
+$past_reg_num = $row[0];
+$past_gra_num = $row[1];
 $past_fac_id = $row[11];
 $past_staff_id = $row[19];
-$past_fac_doc_code= $row[14];
+$past_fac_doc_code= ($row[14]=='')?$row[18]:$row[14];
 
-$title =''; // $row[6];
-$from_sub_num =''; // $row[4];
-$from_run_num =''; // $row[5];
-$date =date("d/m/Y"); // $row[2];
-$dear_to =1; // $row[5];
-$tips =''; // is_null($row[25])? $row[17] : $row[25];
+
+$title = $row[7];
+$from_sub_num = $row[4];
+$from_run_num = $row[5];
+$date = date("d/m/Y",strtotime($row[2]));
+$dear_to = $row[6];
+$tips = is_null($row[25])? $row[17] : $row[25];
 
 ?>
 <html>
@@ -56,26 +60,38 @@ $tips =''; // is_null($row[25])? $row[17] : $row[25];
     <div class="container-fluid">
       <br><br><br><br>
       <div class="text-center">
-        <h3 align="center">บันทึกข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
+        <h3 align="center">แก้ไขข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
       </div>
       <br>
 <!--Form-->
-  <div class="container">
-    <?php $action="save.php";
-          include "inputform.php";
-    ?>
+    <div class="container">
+        <?php $action="update.php";
+            include "inputform.php";
+        ?>
 <!-- End of Form's Input -->
+    <input type="hidden" name="prev_reg_num" id="prev_reg_num" value="<?=$past_reg_num?>">
+    <input type="hidden" name="prev_year_show" id="prev_year_show" value="<?=$row[10]?>">
+    <?php if($row[24]!=null){ ?> <input type="hidden" name="prev_tips" id="prev_tips" value="<?=$row[24]?>"> <?php } ?>
+    <?php if($row[15]!=null){ ?> <input type="hidden" name="prev_others_fac" id="prev_others_fac" value="<?=$row[15]?>"> <?php } ?>
+    
     <div class="form-group row">
-      <div class="col-lg-12  mt-1 mb-3  d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary ">บันทึกข้อมูล (Save)</button>
+      <div class="col-lg-12 mt-3 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary mr-2 ">แก้ไขข้อมูล (Update)</button>
+        <button type="button" role='button' class="btn btn-secondary mr-2 " onClick="history.go(-1)" >ย้อนกลับ (Back)</button>
+        <button type="button" class="btn btn-danger" onclick="window.location.reload()">รีเซ็ตข้อมูล (Reset)</button>
+        
       </div>
     </div>
     </form>
   </div>
 <!-- End of Form -->
 
+    </div>
+  </body>
+</html>
+
 <!-- javascript for validation -->
-  <script>
+<script>
       var form = document.querySelector('.needs-validation');
         form.addEventListener('submit', function(event) {
           if (form.checkValidity() === false) {
@@ -85,12 +101,3 @@ $tips =''; // is_null($row[25])? $row[17] : $row[25];
         form.classList.add('was-validated');
         })
   </script>
-
-<!-- table last 10 records -->
-      <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
-      <?php
-        $show_in_edit = true; 
-        include "fetch.php"?>
-    </div>
-  </body>
-</html>

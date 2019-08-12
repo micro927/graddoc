@@ -10,19 +10,18 @@ $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- JS CSS -->
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <script type="text/javascript" src="jquery/jquery.min.js"></script>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <title>หนังสือเลขรับ ฝ่ายทะเบียนการศึกษา บัณฑิตศึกษา <?=$year_show?></title>
 </head>
 <header>
   <?php include "header.php"?>
 </header>
-<body class="bg-light">
-  <div class="container-fluid">
-      <br><br>
-      <h3 align="center">หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <?=$year_show?></h3>
-      <br>
+<body class="bg-light mt-5">
+    <div class="container-fluid">
+      <div class="text-center">
+      <h3 class='mt-5 mb-4'>หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <?=$year_show?></h3>
 <!-- Search-->
         <div class="d-flex justify-content-center" id="search_group">
           <div class="input-group md-4 col-4">

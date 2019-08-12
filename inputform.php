@@ -98,7 +98,7 @@
       </div>
       <label for="tips-othersfac" class="col-md-1 col-form-label">หมายเหตุ</label>
       <div class="col-md-6">
-        <input name="tips-othersfac" id="tips-othersfac" class="form-control" type="text" value="<?=$tips?>" placeholder="หมายเหตุ (ถ้ามี)">
+        <input name="tips" id="tips" class="form-control" type="text" value="<?=$tips?>" placeholder="หมายเหตุ (ถ้ามี)">
         <div class="invalid-feedback">
           กรุณากรอกชื่อหน่วยงาน
         </div>

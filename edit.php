@@ -25,15 +25,13 @@ $past_fac_id = $row[11];
 $past_staff_id = $row[19];
 $past_fac_doc_code= $row[14];
 
-
 $title =''; // $row[6];
 $from_sub_num =''; // $row[4];
 $from_run_num =''; // $row[5];
 $date =date("d/m/Y"); // $row[2];
 $dear_to =1; // $row[5];
 $tips ='';
-$others_fac_name = null ;
-
+$others_fac_name = null;
 ?>
 <html>
 <head>
@@ -54,13 +52,11 @@ $others_fac_name = null ;
   <?php include "header.php"?>
 </header>
 
-  <body class="bg-light">
+  <body class="bg-light mt-5">
     <div class="container-fluid">
-      <br><br><br><br>
       <div class="text-center">
-        <h3 align="center">บันทึกข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
+        <h3 class='mt-5 mb-4'>บันทึกข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
       </div>
-      <br>
 <!--Form-->
   <div class="container">
     <?php $action="save.php";

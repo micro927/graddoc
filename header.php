@@ -26,9 +26,13 @@
     </nav>
   <?php if(!empty($_GET['saved'])){
     if($_GET['saved']=='ok'){
-      echo'<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Saved!</strong> ระบบทำการบันทึกข้อมูลหนังสือรับเลขที่ '.sprintf("%05s",$past_gra_num).' แล้ว'; }
-    elseif($_GET['saved']=='error'){ echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>SQL Error!</strong> ไม่สามารถบันทึกข้อมูลได้'; }
-    elseif($_GET['saved']=='existed'){ echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>Number Existed!</strong> เลขที่ดังกล่าวถูกใช้แล้ว'; } ?>
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Saved!</strong> ระบบทำการบันทึกข้อมูลหนังสือรับฝ่ายฯ เลขที่ '.sprintf("%05s",$_GET['gra_num']).' แล้ว'; }
+    elseif($_GET['saved']=='updated'){
+      echo'<div class="alert alert-success alert-dismissible fade show" role="alert"> <strong>Updated!</strong> ระบบทำการแก้ไขข้อมูลหนังสือรับฝ่ายฯ เลขที่ '.sprintf("%05s",$_GET['gra_num']).' แล้ว'; }
+    elseif($_GET['saved']=='error'){ 
+      echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>SQL Error!</strong> ไม่สามารถบันทึกข้อมูลได้'; }
+    elseif($_GET['saved']=='existed'){ 
+      echo'<div class="alert alert-danger alert-dismissible fade show" role="alert"> <strong>Number Existed!</strong> เลขที่ดังกล่าวถูกใช้แล้ว'; } ?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="success-alert">
       <span aria-hidden="true">&times;</span>
     </button>

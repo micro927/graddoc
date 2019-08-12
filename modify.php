@@ -37,6 +37,13 @@ $dear_to = $row[6];
 $tips = $row[25];
 $others_fac_name = $row[17];
 
+if(strstr($_SERVER['HTTP_REFERER'],"edit")){ 
+  $prev_page = "edit";
+}
+else{
+  $prev_page = "index";
+};
+
 ?>
 <html>
 <head>
@@ -57,11 +64,11 @@ $others_fac_name = $row[17];
   <?php include "header.php"?>
 </header>
 
-  <body class="bg-light">
+<body class="bg-light mt-5">
     <div class="container-fluid">
-      <br><br><br><br>
+
       <div class="text-center">
-        <h3 align="center">แก้ไขข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
+      <h3 class='mx-auto mt-5'>แก้ไขข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
       </div>
       <br>
 <!--Form-->
@@ -72,13 +79,14 @@ $others_fac_name = $row[17];
 <!-- End of Form's Input -->
     <input type="hidden" name="prev_reg_num" id="prev_reg_num" value="<?=$past_reg_num?>">
     <input type="hidden" name="prev_year_show" id="prev_year_show" value="<?=$row[10]?>">
+    <input type="hidden" name="prev_page" id="prev_page" value="<?=$prev_page?>">
     <?php if($row[24]!=null){ ?> <input type="hidden" name="prev_tips" id="prev_tips" value="<?=$row[24]?>"> <?php } ?>
     <?php if($row[15]!=null){ ?> <input type="hidden" name="prev_others_fac" id="prev_others_fac" value="<?=$row[15]?>"> <?php } ?>
     
     <div class="form-group row">
       <div class="col-lg-12 mt-3 d-flex justify-content-center">
         <button type="submit" class="btn btn-primary mr-2 ">แก้ไขข้อมูล (Update)</button>
-        <button type="button" role='button' class="btn btn-secondary mr-2 " onClick="history.go(-1)" >ย้อนกลับ (Back)</button>
+        <button type="button" role='button' class="btn btn-secondary mr-2 " onClick="window.location.href='<?=$prev_page.'.php'?>'" >ย้อนกลับ (Back)</button>
         <button type="button" class="btn btn-danger" onclick="window.location.reload()">รีเซ็ตข้อมูล (Reset)</button>
         
       </div>

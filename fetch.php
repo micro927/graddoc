@@ -13,7 +13,8 @@ if(isset($_GET['s']) && $_GET['s']!=''){
         OR doc.title LIKE '%$search_text%'
         OR doc.gra_num LIKE '%$search_text%'
         OR fac.fac_name LIKE '%$search_text%'
-        OR staff.staff_name LIKE '%$search_text%')
+        OR staff.staff_name LIKE '%$search_text%'
+        OR others_fac.fac_name LIKE '%$search_text%')
         ORDER BY doc.gra_num DESC";
   $table_h = "ผลการค้นหาทั้งหมด";
 }
@@ -62,7 +63,7 @@ if($query -> num_rows>0){
         <tr <?php if($row[9]==0){ echo"class='text-muted'";}?>>
             <td><?=sprintf("%05d", $row[0])?></td>
             <td><?=$row[1]?></td>
-            <td><?php $doc_num =  "อว.".(($row[18])? $row[18] : $row[14]).$row[4]."/".$row[5]; echo $doc_num;?></td>
+            <td><?php $doc_num =($row[18]!=null)? $row[18]:"อว.".$row[14]; echo $doc_num.$row[4]."/".$row[5];?></td>
             <td><?=date("d/m",strtotime($row[2]))?>/<?=$row[10]?></td>
             <td><?php $doc_fac = ($row[17])? $row[17] : $row[12]; echo mb_strimwidth($doc_fac, 0, 20, "...");?></td>
             <td><?=$row[23]?></td>

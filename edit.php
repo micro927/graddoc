@@ -25,12 +25,14 @@ $past_fac_id = $row[11];
 $past_staff_id = $row[19];
 $past_fac_doc_code= $row[14];
 
+
 $title =''; // $row[6];
 $from_sub_num =''; // $row[4];
 $from_run_num =''; // $row[5];
 $date =date("d/m/Y"); // $row[2];
 $dear_to =1; // $row[5];
-$tips =''; // is_null($row[25])? $row[17] : $row[25];
+$tips ='';
+$others_fac_name = null ;
 
 ?>
 <html>

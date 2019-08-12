@@ -31,10 +31,10 @@
       </div>
       <label for="others_fac" class="col-lg-2 col-form-label">ชื่อหน่วยงานอื่น</label>
       <div id ="others_fac_type" class="col-lg-4">
-        <input name ="others_fac" id ="others_fac" class="form-control" type="text" placeholder="-" value="<?=$tips?>"  <?php if($past_fac_id!='999'){ ?> readonly <?php } ?>>
+        <input name ="others_fac" id ="others_fac" class="form-control" type="text" placeholder="-"  value="<?=$others_fac_name?>"  <?php if($past_fac_id!='999'){ ?> readonly <?php } ?>>
       </div>
     </div>
-      <script>var oth = "<?=$tips?>";</script>
+      <script>var oth = "<?=$others_fac_name?>";</script>
       <script type="text/javascript" src="others_fac_input.js"></script>
     <div class="form-group row">
       <label for="datepicker" class="col-md-2 col-form-label">ลงวันที่(วันที่ฝ่ายฯ รับ)</label>
@@ -53,7 +53,7 @@
       </div>
       <label for="fac_code" class="col-sm-1 col-form-label">เลขที่</label>
       <div id="fac_code_show" class="col-sm-2">
-        <input name="fac_code" idode" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?=$past_fac_doc_code?>" readonly required>
+        <input name="fac_code" idode" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?=$past_fac_doc_code?>" <?php if($past_fac_id!='999'){ ?> readonly <?php } ?> required>
         <div class="invalid-feedback">
           กรุณากรอกเลขหน่วยงาน
         </div>
@@ -98,7 +98,7 @@
       </div>
       <label for="tips-othersfac" class="col-md-1 col-form-label">หมายเหตุ</label>
       <div class="col-md-6">
-        <input name="tips-othersfac" id="tips-othersfac" class="form-control" type="text" value="<?=$tips?>" placeholder="หมายเหตุ หรือ ชื่อหน่วยงาน (กรณีมีรับจากหน่วยงานอื่น)">
+        <input name="tips-othersfac" id="tips-othersfac" class="form-control" type="text" value="<?=$tips?>" placeholder="หมายเหตุ (ถ้ามี)">
         <div class="invalid-feedback">
           กรุณากรอกชื่อหน่วยงาน
         </div>

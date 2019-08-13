@@ -65,14 +65,14 @@ if($query -> num_rows>0){
       </thead>
       <tbody>
       <?php while($row = $query -> fetch_array()){?>
-        <tr <?php if($row[9]==0){ echo"class='text-muted'";}?> data-container="body" data-toggle="tooltip" data-placement="bottom" title="<?=$row[25]?>">
+        <tr <?php if($row[9]==0){ echo"class='text-muted'";}?>>
             <td><?=sprintf("%05d", $row[0])?></td>
             <td><?=$row[1]?></td>
             <td><?php $doc_num =($row[18]!=null)? $row[18]:"อว.".$row[14]; echo $doc_num.$row[4]."/".$row[5];?></td>
             <td><?=date("d/m",strtotime($row[2]))?>/<?=$row[10]?></td>
             <td><?php $doc_fac = ($row[17])? $row[17] : $row[12]; echo mb_strimwidth($doc_fac, 0, 20, "...");?></td>
             <td><?=$row[23]?></td>
-            <td><?php echo mb_strimwidth($row[7], 0, 65, "...")?></td>
+            <td data-container="body" data-toggle="tooltip" data-placement="bottom" title="<?=$row[25]?>"><?php echo mb_strimwidth($row[7], 0, 65, "...")?></td>
             <td><?=$row[20]?></td>
             <?php if($row[9]!=0){ ?>
                     <td><a role="button" class="btn btn-outline-primary btn-sm" href="modify.php?gra_num=<?=$row[1]?>&year_show=<?=$year_show?>">แก้ไข</a></td>         

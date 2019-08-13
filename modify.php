@@ -4,7 +4,8 @@ require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
 $year_show = !empty($_GET["year_show"]) ? $_GET["year_show"] : date("Y")+543;
 $gra_num = !empty($_GET["gra_num"]) ? $_GET["gra_num"] : date("Y")+543;
-
+$referer = !empty($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'';
+$prev_page = (strstr($referer,"edit"))?"edit":"index";
 $lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
                         LEFT JOIN others_fac ON (doc.gra_num = others_fac.gra_num AND doc.year_show = others_fac.year_show)
                         LEFT JOIN staff ON doc.staff_id = staff.staff_id
@@ -12,6 +13,7 @@ $lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
                         LEFT JOIN tips ON (doc.gra_num = tips.gra_num AND doc.year_show = tips.year_show)
                         WHERE doc.year_show ='$year_show' AND doc.gra_num ='$gra_num'
                         LIMIT 1";
+
 $fac_sql = "SELECT fac_id,fac_name FROM fac ORDER BY fac_id";
 $dear_to_sql = "SELECT * FROM dear_to";
 $staff_sql = "SELECT * FROM staff";
@@ -20,6 +22,12 @@ $query_lastdoc = $mysqli -> query($lastdoc_sql);
 $query_fac = $mysqli -> query($fac_sql);
 $query_dear_to = $mysqli -> query($dear_to_sql);
 $query_staff = $mysqli -> query($staff_sql);
+
+if(($query_lastdoc-> num_rows)===0){
+  echo '<script type="text/javascript">
+        window.location.href = "index.php";
+        </script>';
+};
 
 $row =$query_lastdoc -> fetch_array();
 $past_reg_num = $row[0];
@@ -36,13 +44,6 @@ $date = date("d/m/Y",strtotime($row[2]));
 $dear_to = $row[6];
 $tips = $row[25];
 $others_fac_name = $row[17];
-
-if(strstr($_SERVER['HTTP_REFERER'],"edit")){ 
-  $prev_page = "edit";
-}
-else{
-  $prev_page = "index";
-};
 
 ?>
 <html>
@@ -68,7 +69,7 @@ else{
     <div class="container-fluid">
 
       <div class="text-center">
-      <h3 class='mx-auto mt-5'>แก้ไขข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
+      <h3 class='mx-auto mt-5'>แก้ไขข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา<br>เลขที่ฝ่ายฯ <?=$past_gra_num?>  พ.ศ. <?=$year_show?></h3>
       </div>
       <br>
 <!--Form-->

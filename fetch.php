@@ -16,7 +16,7 @@ if(isset($_GET['s']) && $_GET['s']!=''){
         OR fac.fac_name LIKE '%$search_text%'
         OR staff.staff_name LIKE '%$search_text%'
         OR others_fac.fac_name LIKE '%$search_text%')
-        ORDER BY doc.gra_num DESC";
+        ORDER BY doc.gra_num DESC,doc.year_show DESC";
   $table_h = "ผลการค้นหาทั้งหมด";
 }
 elseif(isset($show_in_edit)){
@@ -26,7 +26,7 @@ elseif(isset($show_in_edit)){
         LEFT JOIN dear_to ON doc.dear_to_id = dear_to.dear_to_id
         LEFT JOIN tips ON (doc.gra_num = tips.gra_num AND doc.year_show = tips.year_show)
         WHERE doc.year_show ='$year_show'
-        ORDER BY doc.gra_num DESC LIMIT 10";
+        ORDER BY doc.gra_num DESC,doc.year_show DESC LIMIT 10";
   $table_h = "รายการที่บันทึกล่าสุด";
 }
 else{
@@ -36,7 +36,7 @@ else{
         LEFT JOIN dear_to ON doc.dear_to_id = dear_to.dear_to_id
         LEFT JOIN tips ON (doc.gra_num = tips.gra_num AND doc.year_show = tips.year_show)
         WHERE doc.year_show ='$year_show'
-        ORDER BY doc.gra_num DESC";
+        ORDER BY doc.gra_num DESC,doc.year_show DESC";
   $table_h = "หนังสือรับทั้งหมด";
 }
 $query = $mysqli -> query($sql);
@@ -68,11 +68,11 @@ if($query -> num_rows>0){
         <tr <?php if($row[9]==0){ echo"class='text-muted'";}?>>
             <td><?=sprintf("%05d", $row[0])?></td>
             <td><?=$row[1]?></td>
-            <td><?php $doc_num =($row[18]!=null)? $row[18]:"อว.".$row[14]; echo $doc_num.$row[4]."/".$row[5];?></td>
+            <td><?php $doc_num =($row[18]!=null)? $row[18]:"อว ".$row[14]; echo $doc_num.$row[4]."/".$row[5];?></td>
             <td><?=date("d/m",strtotime($row[2]))?>/<?=$row[10]?></td>
             <td><?php $doc_fac = ($row[17])? $row[17] : $row[12]; echo mb_strimwidth($doc_fac, 0, 20, "...");?></td>
             <td><?=$row[23]?></td>
-            <td data-container="body" data-toggle="tooltip" data-placement="bottom" title="<?=$row[25]?>"><?php echo mb_strimwidth($row[7], 0, 65, "...")?></td>
+            <td class='text-left' data-container="body" data-toggle="tooltip" data-placement="bottom" title="<?=$row[25]?>"><?php echo mb_strimwidth($row[7], 0, 65, "...")?></td>
             <td><?=$row[20]?></td>
             <?php if($row[9]!=0){ ?>
                     <td><a role="button" class="btn btn-outline-primary btn-sm" href="modify.php?gra_num=<?=$row[1]?>&year_show=<?=$year_show?>">แก้ไข</a></td>         

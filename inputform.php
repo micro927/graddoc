@@ -2,7 +2,7 @@
     <div class="form-group row">
       <label for="reg_num" class="col-lg-2 col-form-label">หมายเลขรับสำนักฯ</label>
       <div class="col-lg-4">
-        <input maxlength="5" name="reg_num" class="form-control" type="text" placeholder="เลขรับสำนัก" value="<?=sprintf("%05s",$past_reg_num)?>"  required>
+        <input maxlength="5" name="reg_num" class="form-control" type="text" placeholder="เลขรับสำนัก" value="<?=sprintf("%05s",$past_reg_num)?>"  required  autofocus value="value text" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value">
         <div class="invalid-feedback">
           กรุณาใส่เลขรับสำนัก
         </div>
@@ -53,7 +53,7 @@
       </div>
       <label for="fac_code" class="col-sm-1 col-form-label">เลขที่</label>
       <div id="fac_code_show" class="col-sm-2">
-        <input name="fac_code" idode" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?=$past_fac_doc_code?>" <?php if($past_fac_id!='999'){ ?> readonly <?php } ?> required>
+        <input name="fac_code" idode" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?="อว ".$past_fac_doc_code?>" <?php if($past_fac_id!='999'){ ?> readonly <?php } ?> required>
         <div class="invalid-feedback">
           กรุณากรอกเลขหน่วยงาน
         </div>
@@ -63,7 +63,7 @@
         <input id="from_sub_num" name="from_sub_num" class="form-control" type="text" placeholder="เลขย่อย(ถ้ามี)" value="<?=$from_sub_num?>">
       </div>
       <div class="col-sm-2">
-        <input id="from_run_num" name="from_run_num" class="form-control" type="text" placeholder="/ เลขเอกสาร" value="<?=$from_run_num?>" required autofocus>
+        <input id="from_run_num" name="from_run_num" class="form-control" type="text" placeholder="/ เลขเอกสาร" value="<?=$from_run_num?>" required>
         <div class="invalid-feedback">
           กรุณากรอกเลขเอกสาร
         </div>

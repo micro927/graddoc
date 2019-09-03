@@ -5,35 +5,10 @@ date_default_timezone_set("Asia/Bangkok");
 $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")+543;
 $report_type = !empty($_GET["report_type"]) ? $_GET["report_type"] : "none";
 
-$lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
-                        LEFT JOIN others_fac ON (doc.gra_num = others_fac.gra_num AND doc.year_show = others_fac.year_show)
-                        LEFT JOIN staff ON doc.staff_id = staff.staff_id
-                        LEFT JOIN dear_to ON doc.dear_to_id = dear_to.dear_to_id
-                        WHERE doc.year_show ='$year_show'
-                        ORDER BY date DESC,doc.gra_num DESC LIMIT 1";
-$fac_sql = "SELECT fac_id,fac_name FROM fac ORDER BY fac_id";
-$dear_to_sql = "SELECT * FROM dear_to";
 $staff_sql = "SELECT * FROM staff";
-
-$query_lastdoc = $mysqli -> query($lastdoc_sql);
-$query_fac = $mysqli -> query($fac_sql);
-$query_dear_to = $mysqli -> query($dear_to_sql);
 $query_staff = $mysqli -> query($staff_sql);
 
-$row=$query_lastdoc -> fetch_array();
-$past_reg_num = $row[0]+1;
-$past_gra_num = $row[1]+1;
-$past_fac_id = $row[11];
-$past_staff_id = $row[19];
-$past_fac_doc_code= $row[14];
-
-$title =''; // $row[6];
-$from_sub_num =''; // $row[4];
-$from_run_num =''; // $row[5];
-$date =date("d/m/Y"); // $row[2];
-$dear_to =1; // $row[5];
-$tips ='';
-$others_fac_name = null;
+$date =date("d/m/Y");
 ?>
 <html>
 <head>
@@ -55,7 +30,7 @@ $others_fac_name = null;
     <div class="container-fluid">
       <div class="text-center">
       <h3 class='mt-5 mb-4'>รายงาน<br>หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <?=$year_show?></h3>
-<!-- Search-->
+<!-- Type-->
         <div class="d-flex justify-content-center">
           <button type="button" role="button" onClick="window.location.href='report.php?report_type=d'" class="btn <?php if($report_type=='d' OR $report_type=='none'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายวัน</button>
           <button type="button" role="button" onClick="window.location.href='report.php?report_type=m'" class="btn <?php if($report_type=='m'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายเดือน</button>
@@ -63,20 +38,50 @@ $others_fac_name = null;
           <div id='choose'>
           </div>  
         </div>
-
   <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
-  <script type="text/javascript" src="search.js"></script>
-<!-- Table -->
       <br>
-      <div class='container' id="result">
-        <?php include "report_choose_form.php"?>
+      <div class='container' id="report_result">
+        <form class="needs-validation" novalidate style="margin:auto" action="<?=$action?>" method="POST">
+<!-- Selection Form by Type -->
         <div class="form-group row">
-      <div class="col-lg-12  mt-1 mb-3  d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary px-4">คลิกที่นี่เพื่อสร้างรายงาน</button>
+        <?php if($report_type=='d' OR $report_type=='none'){ ?>
+        
+          <label for="datepicker" class="col-md-2 col-form-label">เลือกวันที่</label>
+            <div class="col-md-4">
+              <input  maxlength="10" name="datepicker" class="form-control" id="datepicker" value="<?=$date?>" required>
+              <div class="invalid-feedback">
+                กรุณากรอกวันที่เอกสาร
+              </div>
+              <script>
+              $('#datepicker').datepicker({
+              uiLibrary: 'bootstrap4',
+              format: 'dd/mm/yyyy',
+              disableDaysOfWeek: [0, 6]
+              });
+              </script>
+           </div>
+        <?php }
+            elseif($report_type=='m'){ ?>
+              month input
+         <?php } 
+            elseif($report_type=='y'){ ?>
+              year input
+        <?php } ?>  
+          <label for="staff_id" class="col-md-2 col-form-label">เลือกผู้ปฏิบัติงาน</label>
+            <div class="col-md-4">
+              <select class="form-control" id="staff_id" name="staff_id">
+                <option id="staff" value="all">ทั้งหมด</option>
+                <?php while($row_staff = $query_staff->fetch_assoc()){?>
+                <option id="staff" value="<?=$row_staff['staff_id']?>"><?=$row_staff['staff_name']?></option>
+              <?php }?>
+              </select>
+            </div>
+          <div class="col-lg-12  mt-4 mb-3  d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary px-4">คลิกที่นี่เพื่อสร้างรายงาน</button>
+          </div>
+        </div>
+      </form>
       </div>
-    </div>
-    </form>
-  </div>
       </div>
   </div>
 </body>

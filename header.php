@@ -10,7 +10,7 @@
           <a class="nav-link text-white" href="edit.php">บันทึก</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">รายงาน</a>  <!--....php?get_year_show=<?=$year_show?>-->
+          <a class="nav-link text-white" href="report.php">รายงาน</a>  <!--....php?get_year_show=<?=$year_show?>-->
         </li>
         <div class="btn-group">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 

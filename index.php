@@ -22,15 +22,16 @@ $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")
     <div class="container-fluid">
       <div class="text-center">
       <h3 class='mt-5 mb-4'>หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <?=$year_show?></h3>
+      </div>
 <!-- Search-->
-        <div class="d-flex justify-content-center" id="search_group">
-          <div class="input-group md-4 col-4">
-           <div class="input-group-prepend">
-             <span class="input-group-text" id="inputGroup-sizing-default">ค้นหา</span>
-           </div>
-           <input autocomplete="off" type="text" id="search" placeholder="ค้นหาจากเลขที่ / เรื่อง / คณะ / ผู้ปฏิบัติ / ปีคศ.-เดือน-วัน" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-         </div>
-       </div>
+          <form action="#">
+            <div class="container input-group mb-3">
+            <input autocomplete="off" type="text" id="search" placeholder="ค้นหา จาก : เลขที่ / เรื่อง / คณะ / ผู้ปฏิบัติ / ปีคศ.-เดือน-วัน , (พิมพ์แล้วกด Enter เพื่อค้นหา)" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">  
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary" type="button">ค้นหา</button>
+              </div>
+            </div>
+          </form>   
   <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
   <script type="text/javascript" src="search.js"></script>
 <!-- Table -->

@@ -3,6 +3,8 @@
 require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
 $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")+543;
+$report_type = !empty($_GET["report_type"]) ? $_GET["report_type"] : "none";
+
 $lastdoc_sql = "SELECT * FROM doc LEFT JOIN fac ON doc.fac_id = fac.fac_id
                         LEFT JOIN others_fac ON (doc.gra_num = others_fac.gra_num AND doc.year_show = others_fac.year_show)
                         LEFT JOIN staff ON doc.staff_id = staff.staff_id
@@ -44,51 +46,38 @@ $others_fac_name = null;
 <script src="bootstrap/js/bootstrap.min.js"></script>
 <script src="gijgo/gijgo.min.js" type="text/javascript"></script>
 <link href="gijgo/gijgo.min.css" rel="stylesheet" type="text/css" />
-
-<title>หนังสือเลขรับ ฝ่ายทะเบียนการศึกษา บัณฑิตศึกษา <?=$year_show?> - บันทึกข้อมูล</title>
+<title>หนังสือเลขรับ ฝ่ายทะเบียนการศึกษา บัณฑิตศึกษา <?=$year_show?></title>
 </head>
-
 <header>
   <?php include "header.php"?>
 </header>
-
-  <body class="bg-light mt-5">
+<body class="bg-light mt-3">
     <div class="container-fluid">
       <div class="text-center">
-        <h3 class='mt-5 mb-4'>บันทึกข้อมูล หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา</h3>
-      </div>
-<!--Form-->
-  <div class="container">
-    <?php $action="save.php";
-          include "inputform.php";
-    ?>
-<!-- End of Form's Input -->
-    <div class="form-group row">
+      <h3 class='mt-5 mb-4'>รายงาน<br>หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <?=$year_show?></h3>
+<!-- Search-->
+        <div class="d-flex justify-content-center">
+          <button type="button" role="button" onClick="window.location.href='report.php?report_type=d'" class="btn <?php if($report_type=='d' OR $report_type=='none'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายวัน</button>
+          <button type="button" role="button" onClick="window.location.href='report.php?report_type=m'" class="btn <?php if($report_type=='m'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายเดือน</button>
+          <button type="button" role="button" onClick="window.location.href='report.php?report_type=y'" class="btn <?php if($report_type=='y'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายปี</button>
+          <div id='choose'>
+          </div>  
+        </div>
+
+  <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
+  <script type="text/javascript" src="search.js"></script>
+<!-- Table -->
+      <br>
+      <div class='container' id="result">
+        <?php include "report_choose_form.php"?>
+        <div class="form-group row">
       <div class="col-lg-12  mt-1 mb-3  d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary px-4">บันทึกข้อมูล (Save)</button>
+        <button type="submit" class="btn btn-primary px-4">คลิกที่นี่เพื่อสร้างรายงาน</button>
       </div>
     </div>
     </form>
   </div>
-<!-- End of Form -->
-
-<!-- javascript for validation -->
-  <script>
-      var form = document.querySelector('.needs-validation');
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-        form.classList.add('was-validated');
-        })
-  </script>
-
-<!-- table last 10 records -->
-      <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
-      <?php
-        $show_in_edit = true; 
-        include "fetch.php"?>
-    </div>
-  </body>
+      </div>
+  </div>
+</body>
 </html>

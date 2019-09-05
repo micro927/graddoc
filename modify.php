@@ -44,8 +44,11 @@ $date = date("d/m/Y",strtotime($row[2]));
 $dear_to = $row[6];
 $tips = $row[25];
 $others_fac_name = $row[17];
-
 ?>
+<script type="text/javascript"> 
+    var year_show = parseInt(<?=$year_show?>,10);
+    var date_show = "<?=$date?>";
+</script>
 <html>
 <head>
 <!-- Required meta tags -->

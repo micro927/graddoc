@@ -33,6 +33,10 @@ $dear_to =1; // $row[5];
 $tips ='';
 $others_fac_name = null;
 ?>
+<script type="text/javascript"> 
+    var year_show = parseInt(<?=$year_show?>,10);
+    var date_show = "<?=$date?>";
+</script>
 <html>
 <head>
 <!-- Required meta tags -->
@@ -85,7 +89,6 @@ $others_fac_name = null;
   </script>
 
 <!-- table last 10 records -->
-      <script type="text/javascript">var year_show = "<?=$year_show?>";</script>
       <?php
         $show_in_edit = true; 
         include "fetch.php"?>

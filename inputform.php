@@ -1,14 +1,14 @@
 <form class="needs-validation" novalidate style="margin:auto" action="<?=$action?>" method="POST">
     <div class="form-group row">
-      <label for="reg_num" class="col-lg-2 col-form-label">หมายเลขรับสำนักฯ</label>
-      <div class="col-lg-4">
+      <label for="reg_num" class="col-md-2 col-form-label">หมายเลขรับสำนักฯ</label>
+      <div class="col-md-4">
         <input maxlength="5" name="reg_num" class="form-control" type="text" placeholder="เลขรับสำนัก" value="<?=sprintf("%05s",$past_reg_num)?>"  required  autofocus value="value text" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value">
         <div class="invalid-feedback">
           กรุณาใส่เลขรับสำนัก
         </div>
       </div>
-      <label for="gra_num" class="col-lg-2 col-form-label">หมายเลขรับฝ่ายฯ</label>
-      <div class="col-lg-4">
+      <label for="gra_num" class="col-md-2 col-form-label">หมายเลขรับฝ่ายฯ</label>
+      <div class="col-md-4">
         <input maxlength="5"  name ="gra_num" class="form-control" type="text" placeholder="เลขรับห้อง" value="<?=sprintf("%05s",$past_gra_num)?>" readonly required>
         <div class="invalid-feedback">
           กรุณาใส่เลขรับห้อง
@@ -29,8 +29,8 @@
           กรุณาเลือกคณะ
         </div>
       </div>
-      <label for="others_fac" class="col-lg-2 col-form-label">ชื่อหน่วยงานอื่น</label>
-      <div id ="others_fac_type" class="col-lg-4">
+      <label for="others_fac" class="col-md-2 col-form-label">ชื่อหน่วยงานอื่น</label>
+      <div id ="others_fac_type" class="col-md-4">
         <input name ="others_fac" id ="others_fac" class="form-control" type="text" placeholder="-"  value="<?=$others_fac_name?>"  <?php if($past_fac_id!='999'){ ?> readonly <?php } ?>>
       </div>
     </div>
@@ -39,21 +39,15 @@
     <div class="form-group row">
       <label for="datepicker" class="col-md-2 col-form-label">ลงวันที่(วันที่ฝ่ายฯ รับ)</label>
       <div class="col-md-3">
-        <input  maxlength="10" name="datepicker" class="form-control" id="datepicker" value="<?=$date?>" required>
+        <input  maxlength="10" name="datepicker" class="form-control" id="datepicker" required>
         <div class="invalid-feedback">
           กรุณากรอกวันที่เอกสาร
         </div>
-        <script>
-        $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4',
-        format: 'dd/mm/yyyy',
-        disableDaysOfWeek: [0, 6]
-        });
-        </script>
+        <script src="datepicker.js"></script>
       </div>
       <label for="fac_code" class="col-sm-1 col-form-label">เลขที่</label>
       <div id="fac_code_show" class="col-sm-2">
-        <input name="fac_code" idode" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?="อว ".$past_fac_doc_code?>" <?php if($past_fac_id!='999'){ ?> readonly <?php } ?> required>
+        <input name="fac_code" id="fac_code" class="form-control" type="text" placeholder="เลขหน่วยงาน" value="<?="อว ".$past_fac_doc_code?>" <?php if($past_fac_id!='999'){ ?> readonly <?php } ?> required>
         <div class="invalid-feedback">
           กรุณากรอกเลขหน่วยงาน
         </div>

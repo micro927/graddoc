@@ -3,7 +3,7 @@
 require_once("config.inc");
 date_default_timezone_set("Asia/Bangkok");
 $year_show = !empty($_GET["get_year_show"]) ? $_GET["get_year_show"] : date("Y")+543;
-$report_type = !empty($_GET["report_type"]) ? $_GET["report_type"] : "none";
+$report_type = !empty($_GET["report_type"]) ? $_GET["report_type"] : "d";
 $query_staff = $mysqli -> query("SELECT * FROM staff");
 $date =date("d/m/Y");
 ?>
@@ -36,7 +36,7 @@ $date =date("d/m/Y");
       <h3 class='mt-5 mb-4'>รายงาน<br>หนังสือรับฝ่ายทะเบียนการศึกษาบัณฑิตศึกษา ปี พ.ศ. <script>document.write(year_show)</script></h3>
 <!-- Type-->
         <div class="d-flex justify-content-center">
-          <button type="button" role="button" onClick="window.location.href='report.php?get_year_show='+year_show+'&report_type=d'" class="btn <?php if($report_type=='d' OR $report_type=='none'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายวัน</button>
+          <button type="button" role="button" onClick="window.location.href='report.php?get_year_show='+year_show+'&report_type=d'" class="btn <?php if($report_type=='d'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายวัน</button>
           <button type="button" role="button" onClick="window.location.href='report.php?get_year_show='+year_show+'&report_type=m'" class="btn <?php if($report_type=='m'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายเดือน</button>
           <button type="button" role="button" onClick="window.location.href='report.php?get_year_show='+year_show+'&report_type=y'" class="btn <?php if($report_type=='y'){?>btn-primary <?php } else {?> btn-outline-primary <?php }?> btn-lg mx-3 px-5">รายปี</button>
           <div id='choose'>
@@ -47,7 +47,7 @@ $date =date("d/m/Y");
         <form id="report_form" class="needs-validation" novalidate style="margin:auto" action="report_fetch.php" method="POST">
 <!-- Selection Form by Type -->
         <div class="form-group row">
-        <?php if($report_type=='d' OR $report_type=='none'){ ?>
+        <?php if($report_type=='d'){ ?>
                   <label for="datepicker" class="col-md-2 col-form-label">เลือกวันที่</label>
             <div class="col-md-4">
               <input  maxlength="10" name="datepicker" class="form-control" id="datepicker" required>
@@ -92,6 +92,8 @@ $date =date("d/m/Y");
               <?php }?>
               </select>
             </div>
+          
+          <input type="hidden" name="report_type" id="report_type" value="<?=$report_type?>">  
           <div class="col-lg-12  mt-4 mb-3  d-flex justify-content-center">
           <button type="submit" class="btn btn-primary px-4">คลิกที่นี่เพื่อสร้างรายงาน</button>
           </div>
